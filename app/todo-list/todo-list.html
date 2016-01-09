@@ -1,0 +1,41 @@
+<!-- Our todo-list will generate `todo-list-item` elements, so we import it -->
+<link rel="import" href="../todo-list-item/todo-list-item.html">
+
+<dom-module id="todo-list">
+    <template>
+        <style>
+            .cell {
+                padding: 5px;
+                border: 1px black solid;
+            }
+        </style>
+        <div class="todos">
+            <template is="dom-repeat" items="{{todos}}">
+                <todo-list-item name="{{item.name}}" description="{{item.description}}">
+                </todo-list-item>
+            </template>
+        </div>
+    </template>
+</dom-module>
+
+<script>
+    // element registration
+    Polymer({
+        is: "todo-list",
+        // add properties and methods on the element's prototype
+        properties: {
+        },
+        ready: function() {
+            this.todos = [
+                {
+                    name: "Init App",
+                    description: "Need to init the application"
+                },
+                {
+                    name: "Create my first component",
+                    description: "Create a todo list item"
+                }
+            ];
+        }
+    });
+</script>
