@@ -1,27 +1,9 @@
-<!-- Our todo-list will generate `todo-list-item` elements, so we import it -->
+<!-- Our todo-list will generate todo-list-item elements, so we import it -->
 <link rel="import" href="../todo-list-item/todo-list-item.html">
-
+<!-- Import iron-ajax to get the list of todos from 'the server' -->
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 <dom-module id="todo-list">
     <template>
-        <style>
-            .search {
-                display: block;
-                float: left;
-                margin-top: 1rem;
-                width: 200px;
-            }
-
-            .search-item {
-                height: 45px;
-                padding: 5px;
-            }
-
-            .list {
-                display: block;
-                float: right;
-                width: calc(100% - 200px);
-            }
-        </style>
         <div class="search">
             <div class="search-item">Search: </br><input value="{{filterText::input}}"></div>
             <div class="search-item">Current search: </br>{{filterText}}</div>
@@ -33,66 +15,36 @@
                 </todo-list-item>
             </template>
         </div>
+        <iron-ajax
+                auto
+                url="../todo.json"
+                method='get'
+                params='{}'
+                handle-as="json"
+                on-response="gotTodos"
+                on-error="gotError"
+                debounce-duration="300"></iron-ajax>
     </template>
-</dom-module>
-
-<script>
-    // element registration
-    Polymer({
-        is: "todo-list",
-        // add properties and methods on the element's prototype
-        properties: {
-            filterText: {
-                type: String,
-                observer: "filterTextChanged"
-            },
-            todos: {
-                type: Array,
-            },
-            currentTodos: {
-                type: String,
-                computed: "getCurrentTodos(todos, filterText)"
-            }
-        },
-        ready: function () {
-            this.todos = [
-                {
-                    name: "Init App",
-                    description: "Need to init the application"
-                },
-                {
-                    name: "Create my first component",
-                    description: "Create a todo list item"
-                },
-                {
-                    name: "Add a container component",
-                    description: "Create a list containing all todo items"
-                },
-                {
-                    name: "Add a filter option",
-                    description: "Adds a text box to filter the items"
-                },
-                {
-                    name: "Add a sorting function",
-                    description: "We'll soon be adding a sorting function"
-                }
-            ];
-            this.filterText = "";
-        },
-        filterTextChanged: function (newValue, oldValue) {
-            this.$.todoList.render();
-        },
-        todoListFilter: function (item) {
-            return item.name.match(new RegExp(this.filterText, 'i'));
-        },
-        getCurrentTodos: function () {
-            var current = 0;
-            for (var i in this.todos) {
-                if (this.todoListFilter(this.todos[i])) {
-                    current++
-                }
-            }
-            return current;
+    <style>
+        .search {
+            display: block;
+            float: left;
+            margin-top: 1rem;
+            width: 200px;
         }
-    });
-</script>
+
+        .search-item {
+            height: 45px;
+            padding: 5px;
+        }
+
+        .list {
+            display: block;
+            float: right;
+            width: calc(100% - 200px);
+        }
+    </style>
+</dom-module>
+        <script>// element registration
+        </script>
+<script src="todo-list.js"></script>

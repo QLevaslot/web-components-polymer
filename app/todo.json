@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Init App",
+        "description": "Need to init the application"
+    },
+    {
+        "name": "Create my first component",
+        "description": "Create a todo list item"
+    },
+    {
+        "name": "Add a container component",
+        "description": "Create a list containing all todo items"
+    },
+    {
+        "name": "Add a filter option",
+        "description": "Adds a text box to filter the items"
+    },
+    {
+        "name": "Add a sorting function",
+        "description": "We'll soon be adding a sorting function"
+    }
+]
